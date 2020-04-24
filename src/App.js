@@ -8,12 +8,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import  CheckboxList from './components/CheckboxList';
 
+const EMPTY_COMPLETION_DATE = 'not yet'
 const initialState = {
   name: '',
   completed: false,
   description: '', 
   target_date: new Date(), 
-  completion_date: 'not yet' 
+  completion_date: EMPTY_COMPLETION_DATE 
 }
 
 const App = () => {
@@ -27,7 +28,7 @@ const App = () => {
   }, [])
 
   function handleCompleted(event, todo) {
-    const completion_date = (event.target.checked)? new Date() : 'not yet'
+    const completion_date = (event.target.checked)? new Date() : EMPTY_COMPLETION_DATE
     updateThisTodo({...todo, completed: event.target.checked, completion_date})
   }
   function setInput(key, value) {

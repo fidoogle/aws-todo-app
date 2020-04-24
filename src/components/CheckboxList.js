@@ -45,7 +45,10 @@ export default function CheckboxList({ todos, handleCompleted }) {
                     <ListItem 
                         key={todo.id || index} 
                         dense button 
-                        alignItems="flex-start">
+                        alignItems="flex-start"
+                        // add a strike style depending on the completed property of the todo item
+                        style={{ textDecoration : todo.completed ? 'line-through' : 'none' }}
+                    >
                         <ListItemIcon>
                             <Checkbox
                                 edge="start"
