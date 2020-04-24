@@ -8,7 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import  CheckboxList from './components/CheckboxList';
 
-const initialState = { 
+const initialState = {
   name: '',
   completed: false,
   description: '', 
@@ -53,9 +53,9 @@ const App = () => {
     try {
       if (!formState.name || !formState.description) return
       const todo = { ...formState }
-      setTodos([...todos, todo])
-      setFormState(initialState)
       await API.graphql(graphqlOperation(createTodo, {input: todo}))
+      await fetchTodos() //re-fetch with new ID for added todo
+      setFormState(initialState)
     } catch (err) {
       console.log('error creating todo:', err)
     }

@@ -42,7 +42,10 @@ export default function CheckboxList({ todos, handleCompleted }) {
 
                 return (
                     //TODO: add click handler to rows to toggle checkbox
-                    <ListItem key={todo.id || index} role={undefined} dense button alignItems="flex-start">
+                    <ListItem 
+                        key={todo.id || index} 
+                        dense button 
+                        alignItems="flex-start">
                         <ListItemIcon>
                             <Checkbox
                                 edge="start"
