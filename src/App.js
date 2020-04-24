@@ -1,7 +1,7 @@
 /* src/App.js */
 import React, { useEffect, useState } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
-import { createTodo, updateTodo } from './graphql/mutations'
+import { createTodo, updateTodo, deleteTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import DatePicker from "react-datepicker";
@@ -65,9 +65,18 @@ const App = () => {
   async function updateThisTodo(todo) {
     try {
       await API.graphql(graphqlOperation(updateTodo, {input: todo}))
-      fetchTodos() //TODO: refresh clientside to prevent a round-trip
+      fetchTodos() //TODO: refresh clientside to prevent a round-trip?
     } catch (err) {
       console.log('error updating todo:', err)
+    }
+  }
+
+  async function deleteThisTodo(id) {
+    try {
+      await API.graphql(graphqlOperation(deleteTodo, {input: id}))
+      fetchTodos()
+    } catch (err) {
+      console.log('error deleting todo:', err)
     }
   }
 
@@ -99,7 +108,7 @@ const App = () => {
 
       <h2>Current Todos</h2>
       
-      <CheckboxList todos={todos} handleCompleted={handleCompleted}></CheckboxList>
+      <CheckboxList todos={todos} handleCompleted={handleCompleted} handleDelete={deleteThisTodo}></CheckboxList>
 
     </div>
   )

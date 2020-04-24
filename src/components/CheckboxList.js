@@ -4,8 +4,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +30,7 @@ function formatDate(value) {
     return value
 }
 
-export default function CheckboxList({ todos, handleCompleted }) {
+export default function CheckboxList({ todos, handleCompleted, handleDelete }) {
     const classes = useStyles();
     //const [todos, setTodos] = useState([])
 
@@ -76,6 +79,15 @@ export default function CheckboxList({ todos, handleCompleted }) {
                                 </React.Fragment>
                             }
                         />
+                        {todo.completed && 
+                            <ListItemSecondaryAction>
+                                <IconButton edge="end" aria-label="delete"
+                                    onClick={() => handleDelete({id: todo.id})}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        }
                     </ListItem>
                 );
             })}
